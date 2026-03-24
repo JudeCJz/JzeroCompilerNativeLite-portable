@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: JzeroCompilerNativeLite.exe
+          body: |
+            ### Jzero Compiler Native Lite (Portable)
+            This is the official portable distribution.
+            
+            **Only needed data to run:**
+            - `JzeroCompilerNativeLite.exe` (The main app)
+            - `FastColoredTextBox.dll` (Editor engine)
+            - `gcc/` folder (Portable compiler)
+            
+            **Instructions:**
+            Download the `JzeroCompilerNativeLite.exe` below, or download the full repository as a ZIP. Ensure all files are in the same folder.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
